@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "title": "@runnerty-executor-decompress",
+  "definitions": {
+    "config": {
+      "type": "object",
+      "required": [
+        "id",
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "pattern": "@runnerty-executor-decompress"
+        }
+      }
+    },
+    "params": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "compress_file": {
+          "type": "string"
+        },
+        "decompress_dir": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

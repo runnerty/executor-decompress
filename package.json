@@ -1,0 +1,31 @@
+{
+  "name": "@runnerty/executor-decompress",
+  "version": "0.0.1",
+  "description": "Runnerty module: Decompress (tar, zip, rar, 7z, gz)",
+  "author": "Coderty",
+  "license": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Coderty/runnerty-executor-decompress.git"
+  },
+  "keywords": [
+    "runnerty",
+    "executor",
+    "decompress",
+    "unpacker",
+    "zip",
+    "unzip",
+    "tar",
+    "rar",
+    "7z",
+    "gz"
+  ],
+  "bugs": {
+    "url": "https://github.com/Coderty/runnerty-executor-decompress/issues"
+  },
+  "homepage": "https://github.com/Coderty/runnerty-executor-decompress#readme",
+  "dependencies": {
+    "shelljs": "^0.7.8"
+  }
+}
