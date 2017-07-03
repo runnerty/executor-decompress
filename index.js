@@ -74,7 +74,7 @@ class decompressExecutor extends Execution {
         EXT: "rar",
       },
       "SEVEN_ZIP": {
-        SCRIPT: "mkdir -p ${dir} && cp -fr ${fileName} ${dir}/ 2>/dev/null || SAME_DIR=1 && cd ${dir} && 7z x \"${basename}\" -y && ([[ -z $SAME_DIR ]] && rm -frv \"${basename}\")",
+        SCRIPT: "mkdir -p ${dir} && cp -fr ${fileName} ${dir}/ 2>/dev/null || SAME_DIR=1 && cd ${dir} 1>/dev/null && 7z x \"${basename}\" -y && if [[ -z $SAME_DIR ]]; then rm -frv \"${basename}\"; fi;",
         SHELL: "7z",
         EXT: "7z",
       },
