@@ -95,8 +95,6 @@ class decompressExecutor extends Execution {
       },
     };
 
-
-
     var fileName = res.compress_file;
     var dir = res.decompress_dir;
     var verbose = "";
@@ -108,7 +106,7 @@ class decompressExecutor extends Execution {
       let endOptions = {
         end: "error",
         messageLog: `Error file type not found: ${fileName}`,
-        execute_err_return: `Error file type not found: ${fileName}`
+        err_output: `Error file type not found: ${fileName}`
       };
       _this.end(endOptions);
     }else{
@@ -117,7 +115,7 @@ class decompressExecutor extends Execution {
         let endOptions = {
           end: "error",
           messageLog: `Error, script required ${shScript}, please install.`,
-          execute_err_return: `Error, script required ${shScript}, please install.`
+          err_output: `Error, script required ${shScript}, please install.`
         };
         _this.end(endOptions);
       }else{
@@ -132,12 +130,12 @@ class decompressExecutor extends Execution {
             let endOptions = {
               end: "error",
               messageLog: `Error decompress process: ${stderr}`,
-              execute_err_return: stderr
+              err_output: stderr
             };
             _this.end(endOptions);
           }else{
             let endOptions = {
-              execute_return: stdout
+              msg_output: stdout
             };
             _this.end(endOptions);
           }
