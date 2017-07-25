@@ -24,7 +24,7 @@ class decompressExecutor extends Execution {
       var possibles = [];
       for (var key in COMPRESS_PROFILE) {
         var ext = "." + COMPRESS_PROFILE[key].EXT;
-        var i = filename.indexOf(ext);
+        var i = filename.toLowerCase().indexOf(ext);
         if (i != -1 && i == (filename.length - ext.length) ) possibles.push(key);
       }
       if (possibles.length === 0) return -1;
