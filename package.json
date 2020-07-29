@@ -1,6 +1,6 @@
 {
   "name": "@runnerty/executor-decompress",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "Runnerty module: Decompress (tar, zip, rar, 7z, gz)",
   "author": "Coderty",
   "license": "MIT",
@@ -25,7 +25,16 @@
     "url": "https://github.com/runnerty/executor-decompress/issues"
   },
   "homepage": "https://github.com/runnerty/executor-decompress#readme",
+  "scripts": {
+    "lint": "eslint '**/*.js' && prettier --check '**'"
+  },
   "dependencies": {
-    "shelljs": "^0.7.8"
+    "shelljs": "^0.8.4"
+  },
+  "devDependencies": {
+    "eslint": "^7.5.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.0.5"
   }
 }

@@ -1,9 +1,9 @@
-"use strict";
+'use strict';
 
-var shell = require("shelljs");
-var path = require("path");
+const shell = require('shelljs');
+const path = require('path');
 
-var Execution = global.ExecutionClass;
+const Execution = global.ExecutionClass;
 
 class decompressExecutor extends Execution {
   constructor(process) {
@@ -11,138 +11,150 @@ class decompressExecutor extends Execution {
   }
 
   exec(res) {
-    var _this = this;
-
-    function render(template, opts) {
-      return new Function(
-        "return new Function (" + Object.keys(opts).reduce((args, arg) => args += "\'" + arg + "\',", "") + "\'return `" + template.replace(/(^|[^\\])'/g, "$1\\\'") + "`;\'" +
-        ").apply(null, " + JSON.stringify(Object.keys(opts).reduce((vals, key) => vals.push(opts[key]) && vals, [])) + ");"
-      )();
-    }
-
-    function getFileType(filename) {
-      var possibles = [];
-      for (var key in COMPRESS_PROFILE) {
-        var ext = "." + COMPRESS_PROFILE[key].EXT;
-        var i = filename.toLowerCase().indexOf(ext);
-        if (i != -1 && i == (filename.length - ext.length) ) possibles.push(key);
-      }
-      if (possibles.length === 0) return -1;
-
-      var max = 0;
-      var result = -1;
-      possibles.forEach(function(v, i, a) {
-        var ext = "." + COMPRESS_PROFILE[v].EXT;
-        if (ext.length > max) {
-          max = ext.length;
-          result = v;
-        }
-      });
-
-      return result;
-    }
-
     const COMPRESS_PROFILE = {
-      "TAR": {
-        SCRIPT: "mkdir -p ${dir} && tar -C ${dir} ${verbose} -xvf \"${fileName}\" ",
-        SHELL: "tar",
-        EXT: "tar",
+      TAR: {
+        SCRIPT: 'mkdir -p ${dir} && tar -C ${dir} ${verbose} -xvf "${fileName}" ',
+        SHELL: 'tar',
+        EXT: 'tar'
       },
-      "TAR_GZ": {
-        SCRIPT: "mkdir -p ${dir} && tar -C ${dir} ${verbose} -xzvf \"${fileName}\" ",
-        SHELL: "tar",
-        EXT: "tar.gz",
+      TAR_GZ: {
+        SCRIPT: 'mkdir -p ${dir} && tar -C ${dir} ${verbose} -xzvf "${fileName}" ',
+        SHELL: 'tar',
+        EXT: 'tar.gz'
       },
-      "ZIP": {
-        SCRIPT: "mkdir -p ${dir} && unzip -d ${dir} ${verbose} -o \"${fileName}\"",
-        SHELL: "unzip",
-        EXT: "zip",
+      ZIP: {
+        SCRIPT: 'mkdir -p ${dir} && unzip -d ${dir} ${verbose} -o "${fileName}"',
+        SHELL: 'unzip',
+        EXT: 'zip'
       },
-      "BZ2": {
-        SCRIPT: "mkdir -p ${dir} && cp -fr ${fileName} ${dir}/ 2>/dev/null || true && cd ${dir} && bunzip2 ${verbose} -dk ${basename}",
-        SHELL: "bzip2",
-        EXT: "bz2",
+      BZ2: {
+        SCRIPT:
+          'mkdir -p ${dir} && cp -fr ${fileName} ${dir}/ 2>/dev/null || true && cd ${dir} && bunzip2 ${verbose} -dk ${basename}',
+        SHELL: 'bzip2',
+        EXT: 'bz2'
       },
-      "TAR_BZ2": {
-        SCRIPT: "mkdir -p ${dir} && tar -C ${dir} ${verbose} -xjvf \"${fileName}\" ",
-        SHELL: "tar",
-        EXT: "tar.bz2",
+      TAR_BZ2: {
+        SCRIPT: 'mkdir -p ${dir} && tar -C ${dir} ${verbose} -xjvf "${fileName}" ',
+        SHELL: 'tar',
+        EXT: 'tar.bz2'
       },
-      "RAR": {
-        SCRIPT: "mkdir -p ${dir} && cp -fr ${fileName} ${dir}/ 2>/dev/null || SAME_DIR=1 && cd ${dir} && unrar ${verbose} \"${basename}\" -y && if [[ -z $SAME_DIR ]]; then rm -frv \"${basename}\"; fi;",
-        SHELL: "unrar",
-        EXT: "rar",
+      RAR: {
+        SCRIPT:
+          'mkdir -p ${dir} && cp -fr ${fileName} ${dir}/ 2>/dev/null || SAME_DIR=1 && cd ${dir} && unrar ${verbose} "${basename}" -y && if [[ -z $SAME_DIR ]]; then rm -frv "${basename}"; fi;',
+        SHELL: 'unrar',
+        EXT: 'rar'
       },
-      "SEVEN_ZIP": {
-        SCRIPT: "mkdir -p ${dir} && cp -fr ${fileName} ${dir}/ 2>/dev/null || SAME_DIR=1 && cd ${dir} 1>/dev/null && 7z x \"${basename}\" -y && if [[ -z $SAME_DIR ]]; then rm -frv \"${basename}\"; fi;",
-        SHELL: "7z",
-        EXT: "7z",
+      SEVEN_ZIP: {
+        SCRIPT:
+          'mkdir -p ${dir} && cp -fr ${fileName} ${dir}/ 2>/dev/null || SAME_DIR=1 && cd ${dir} 1>/dev/null && 7z x "${basename}" -y && if [[ -z $SAME_DIR ]]; then rm -frv "${basename}"; fi;',
+        SHELL: '7z',
+        EXT: '7z'
       },
-      "TAR_TGZ": {
-        SCRIPT: "mkdir -p ${dir} && tar -C ${dir} ${verbose} -xzvf \"${fileName}\" ",
-        SHELL: "tar",
-        EXT: "tar.tgz",
+      TAR_TGZ: {
+        SCRIPT: 'mkdir -p ${dir} && tar -C ${dir} ${verbose} -xzvf "${fileName}" ',
+        SHELL: 'tar',
+        EXT: 'tar.tgz'
       },
-      "TGZ": {
-        SCRIPT: "mkdir -p ${dir} && tar -C ${dir} ${verbose} -xzvf \"${fileName}\" ",
-        SHELL: "tar",
-        EXT: "tgz",
+      TGZ: {
+        SCRIPT: 'mkdir -p ${dir} && tar -C ${dir} ${verbose} -xzvf "${fileName}" ',
+        SHELL: 'tar',
+        EXT: 'tgz'
       },
-      "GZ": {
-        SCRIPT: "mkdir -p ${dir} && cp -fr ${fileName} ${dir}/ 2>/dev/null || true && cd ${dir} && gunzip ${verbose} -d ${basename}",
-        SHELL: "gunzip",
-        EXT: "gz",
-      },
+      GZ: {
+        SCRIPT:
+          'mkdir -p ${dir} && cp -fr ${fileName} ${dir}/ 2>/dev/null || true && cd ${dir} && gunzip ${verbose} -d ${basename}',
+        SHELL: 'gunzip',
+        EXT: 'gz'
+      }
     };
 
-    var fileName = res.compress_file;
-    var dir = res.decompress_dir;
-    var verbose = "";
-    var basename = path.basename(fileName);
+    const fileName = res.compress_file;
+    const dir = res.decompress_dir;
+    let verbose = '';
+    const basename = path.basename(fileName);
 
-    var type = getFileType(fileName);
+    const type = this.getFileType(fileName, COMPRESS_PROFILE);
 
     if (type === -1) {
-      let endOptions = {
-        end: "error",
+      const endOptions = {
+        end: 'error',
         messageLog: `Error file type not found: ${fileName}`,
         err_output: `Error file type not found: ${fileName}`
       };
-      _this.end(endOptions);
-    }else{
-      var shScript = COMPRESS_PROFILE[type].SHELL;
+      this.end(endOptions);
+    } else {
+      const shScript = COMPRESS_PROFILE[type].SHELL;
       if (!shell.which(shScript)) {
-        let endOptions = {
-          end: "error",
+        const endOptions = {
+          end: 'error',
           messageLog: `Error, script required ${shScript}, please install.`,
           err_output: `Error, script required ${shScript}, please install.`
         };
-        _this.end(endOptions);
-      }else{
-        if (type === "RAR") verbose = "x";
+        this.end(endOptions);
+      } else {
+        if (type === 'RAR') verbose = 'x';
 
-        var repVal = {fileName:fileName, dir:dir || "./", verbose:verbose, basename:basename};
-        var script = COMPRESS_PROFILE[type].SCRIPT;
-        var command = render(script, repVal);
+        const repVal = {
+          fileName: fileName,
+          dir: dir || './',
+          verbose: verbose,
+          basename: basename
+        };
+        const script = COMPRESS_PROFILE[type].SCRIPT;
+        const command = this.render(script, repVal);
 
-        shell.exec(command, function(code, stdout, stderr) {
+        shell.exec(command, (code, stdout, stderr) => {
           if (code !== 0) {
-            let endOptions = {
-              end: "error",
+            const endOptions = {
+              end: 'error',
               messageLog: `Error decompress process: ${stderr}`,
               err_output: stderr
             };
-            _this.end(endOptions);
-          }else{
-            let endOptions = {
+            this.end(endOptions);
+          } else {
+            const endOptions = {
               msg_output: stdout
             };
-            _this.end(endOptions);
+            this.end(endOptions);
           }
         });
       }
     }
+  }
 
+  render(template, opts) {
+    return new Function(
+      'return new Function (' +
+        Object.keys(opts).reduce((args, arg) => (args += "'" + arg + "',"), '') +
+        "'return `" +
+        template.replace(/(^|[^\\])'/g, "$1\\'") +
+        "`;'" +
+        ').apply(null, ' +
+        JSON.stringify(Object.keys(opts).reduce((vals, key) => vals.push(opts[key]) && vals, [])) +
+        ');'
+    )();
+  }
+
+  getFileType(filename, COMPRESS_PROFILE) {
+    const possibles = [];
+    for (const key in COMPRESS_PROFILE) {
+      const ext = '.' + COMPRESS_PROFILE[key].EXT;
+      const i = filename.toLowerCase().indexOf(ext);
+      if (i != -1 && i == filename.length - ext.length) possibles.push(key);
+    }
+    if (possibles.length === 0) return -1;
+
+    let max = 0;
+    let result = -1;
+    possibles.forEach(v => {
+      const ext = '.' + COMPRESS_PROFILE[v].EXT;
+      if (ext.length > max) {
+        max = ext.length;
+        result = v;
+      }
+    });
+
+    return result;
   }
 }
 
