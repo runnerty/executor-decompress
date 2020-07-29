@@ -11,7 +11,7 @@
 </a>
 
 # Decompress executor for [Runnerty]:
-Requires tar, unzip, gunzip, 7z and rar CLI tools to be installed in the SO.
+Requires `tar`, `unzip`, `gunzip`, `7z` and `rar` CLI tools to be installed in the SO.
 
 ### Installation:
 ```bash
