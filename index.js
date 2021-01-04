@@ -3,9 +3,9 @@
 const shell = require('shelljs');
 const path = require('path');
 
-const Execution = global.ExecutionClass;
+const Executor = require('@runnerty/module-core').Executor;
 
-class decompressExecutor extends Execution {
+class decompressExecutor extends Executor {
   constructor(process) {
     super(process);
   }

@@ -1,0 +1,8 @@
+{
+  "executors": [
+    {
+      "id": "decompress_default",
+      "type": "@runnerty-executor-decompress"
+    }
+  ]
+}
