@@ -3,7 +3,6 @@
 api
 node_modules
 samples
-*.md
 *.json
 *.zip
 .DS_Store

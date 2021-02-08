@@ -2,18 +2,20 @@
   <a href="http://runnerty.io">
     <img height="257" src="https://runnerty.io/assets/header/logo-stroked.png">
   </a>
-  <p align="center">A new way for processes managing</p>
+  <p align="center">Smart Processes Management</p>
 </p>
 
 [![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Dependency Status][david-badge]][david-badge-url]
 <a href="#badge">
-  <img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg">
+<img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg">
 </a>
 
 # Decompress executor for [Runnerty]:
+
 Requires `tar`, `unzip`, `gunzip`, `7z` and `rar` CLI tools to be installed in the SO.
 
 ### Installation:
+
 Through NPM
 
 ```bash
@@ -35,7 +37,9 @@ rty add @runnerty/executor-decompress
 ```
 
 ### Configuration sample:
+
 Add in [config.json]:
+
 ```json
 {
   "id": "decompress_default",
@@ -44,7 +48,9 @@ Add in [config.json]:
 ```
 
 ### Plan sample:
+
 Add in [plan.json]:
+
 ```json
 {
   "id": "decompress_default",
@@ -61,7 +67,7 @@ Add in [plan.json]:
 }
 ```
 
-[Runnerty]: http://www.runnerty.io
+[runnerty]: http://www.runnerty.io
 [downloads-image]: https://img.shields.io/npm/dm/@runnerty/executor-decompress.svg
 [npm-url]: https://www.npmjs.com/package/@runnerty/executor-decompress
 [npm-image]: https://img.shields.io/npm/v/@runnerty/executor-decompress.svg
