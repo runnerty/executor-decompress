@@ -1,6 +1,6 @@
 {
   "name": "@runnerty/executor-decompress",
-  "version": "3.0.3",
+  "version": "3.1.0",
   "description": "Runnerty module: Decompress (tar, zip, rar, 7z, gz)",
   "author": "Runnerty Tech",
   "license": "MIT",
@@ -29,13 +29,13 @@
     "lint": "eslint '**/*.js' && prettier --check '**'"
   },
   "dependencies": {
-    "@runnerty/module-core": "~3.0.5",
+    "@runnerty/module-core": "~3.1.0",
     "shelljs": "~0.8.4"
   },
   "devDependencies": {
-    "eslint": "^7.20.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-prettier": "^3.3.1",
-    "prettier": "^2.2.1"
+    "eslint": "^8.8.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.5.1"
   }
 }
